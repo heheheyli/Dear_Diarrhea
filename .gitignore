@@ -1,0 +1,4 @@
+# your actual journal: never commit this
+data/
+__pycache__/
+*.zip

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My journal</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23ff8eb8'/%3E%3Crect x='7' y='2' width='2' height='12' fill='%23fffdfc'/%3E%3Crect x='2' y='7' width='12' height='2' fill='%238fcef6'/%3E%3C/svg%3E">
+<script>
+try {
+  const saved = localStorage.getItem('theme');
+  const dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  if (!saved) document.documentElement.dataset.themeAuto = '1';
+} catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:ital,opsz,wght@0,9..144,460;0,9..144,650;0,9..144,700;1,9..144,460&family=Nunito:wght@600;700;800&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="lock-page">
+<form class="lock-card" method="post" autocomplete="off">
+  <div class="lock-mark" aria-hidden="true">
+    <svg viewBox="0 0 17 15">
+      <rect x="2" y="1" width="4" height="2"/>
+      <rect x="11" y="1" width="4" height="2"/>
+      <rect x="1" y="3" width="15" height="2"/>
+      <rect x="1" y="5" width="15" height="2"/>
+      <rect x="3" y="7" width="11" height="2"/>
+      <rect x="5" y="9" width="7" height="2"/>
+      <rect x="7" y="11" width="3" height="2"/>
+    </svg>
+  </div>
+  <p class="eyebrow">my journal</p>
+  <h1>{{ "Make a secret" if setup else "Sup welcome back" }}</h1>
+  <p class="lede">{{ "4-8 digits. I'll ask every time you open this ^^" if setup else "Yo what's the pin?" }}</p>
+  <input type="password" name="pin" inputmode="numeric" pattern="\d{4,8}" maxlength="8" placeholder="pin" autofocus required>
+  {% if setup %}
+  <input type="password" name="confirm" inputmode="numeric" pattern="\d{4,8}" maxlength="8" placeholder="and again" required>
+  {% endif %}
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <button type="submit" class="btn primary">{{ "Set my pin" if setup else "Let me in bro" }}</button>
+</form>
+</body>
+</html>
