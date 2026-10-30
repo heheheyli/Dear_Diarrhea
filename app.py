@@ -1,4 +1,4 @@
-"""Personal journal: Flask + SQLite, runs on localhost only.
+"""Dear Diarrhea: Flask + SQLite, runs on localhost only.
 
 Run:  python app.py            (or double-click journal.bat)
 Reset a forgotten PIN:  python app.py --reset-pin
@@ -207,6 +207,11 @@ def index():
 @login_required
 def photo_file(filename):
     return send_from_directory(PHOTO_DIR, filename)
+
+
+@app.get("/logo.svg")
+def logo_svg():
+    return send_from_directory(os.path.join(BASE_DIR, "logo"), "logo.svg", mimetype="image/svg+xml")
 
 
 # ---------- days & entries ----------
@@ -443,12 +448,12 @@ def export():
                 for p in db.execute("SELECT filename FROM photos WHERE entry_id=?", (r["id"],)):
                     src = os.path.join(PHOTO_DIR, p["filename"])
                     if os.path.exists(src):
-                        z.write(src, f"journal/photos/{p['filename']}")
+                        z.write(src, f"DearDiarrhea/photos/{p['filename']}")
                         parts.append(f'<img src="../photos/{p["filename"]}" style="max-width:100%">')
-            z.writestr(f"journal/{d.year}/{ds}.html", "\n".join(parts) + "\n</body>\n")
+            z.writestr(f"DearDiarrhea/{d.year}/{ds}.html", "\n".join(parts) + "\n</body>\n")
     buf.seek(0)
     return send_file(buf, mimetype="application/zip", as_attachment=True,
-                     download_name=f"journal-export-{date.today().isoformat()}.zip")
+                     download_name=f"DearDiarrhea-export-{date.today().isoformat()}.zip")
 
 
 # ---------- launch ----------
@@ -463,17 +468,17 @@ if __name__ == "__main__":
     if "--reset-pin" in sys.argv:
         with sqlite3.connect(DB_PATH) as con:
             con.execute("DELETE FROM settings WHERE key='pin_hash'")
-        print("PIN cleared. You'll set a new one next time you open the journal.")
+        print("PIN cleared. You'll set a new one next time you open Dear Diarrhea.")
         sys.exit()
 
     url = f"http://{HOST}:{PORT}"
     if port_in_use():
-        print("Journal is already running. Opening it.")
+        print("Dear Diarrhea is already running. Opening it.")
         webbrowser.open(url)
         sys.exit()
 
     logging.getLogger("werkzeug").setLevel(logging.ERROR)
     if "--no-browser" not in sys.argv:
         threading.Timer(1.0, webbrowser.open, args=(url,)).start()
-    print(f"Journal running at {url}\nClose this window to stop it.")
+    print(f"Dear Diarrhea running at {url}\nClose this window to stop it.")
     app.run(host=HOST, port=PORT, debug=False)

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dear Diarrhea</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23ff8eb8'/%3E%3Crect x='7' y='2' width='2' height='12' fill='%23fffdfc'/%3E%3Crect x='2' y='7' width='12' height='2' fill='%238fcef6'/%3E%3C/svg%3E">
+<link rel="icon" href="{{ url_for('logo_svg') }}" type="image/svg+xml">
 <script>
 try {
   const saved = localStorage.getItem('theme');
@@ -22,14 +22,11 @@ try {
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 15 15" aria-hidden="true">
-        <g fill="#8fcef6"><rect x="6" y="0" width="3" height="15"/><rect x="0" y="6" width="15" height="3"/></g>
-        <rect x="6" y="6" width="3" height="3" fill="#ff6aa3"/>
-      </svg>
-      <div>
+      <div class="brand-top">
+        <img class="brand-mark" src="{{ url_for('logo_svg') }}" alt="">
         <span class="brand-name">Dear Diarrhea</span>
-        <span class="brand-tag">I don't chase, I attract. What belongs to me will simply find me.</span>
       </div>
+      <span class="brand-tag">I don't chase, I attract. What belongs to me will simply find me.</span>
     </div>
     <div class="streak" id="streak" title="Days you've written in a row">
       <svg class="streak-mark" viewBox="0 0 17 15" aria-hidden="true">

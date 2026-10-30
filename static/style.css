@@ -169,8 +169,9 @@ button { cursor: pointer; }
   margin: 0 auto;
 }
 
-.brand { display: flex; align-items: center; gap: 10px; user-select: none; }
-.brand-mark { width: 28px; height: 28px; display: block; flex: none; transform-origin: center; animation: bob 3.2s ease-in-out infinite; }
+.brand { display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 22px; user-select: none; }
+.brand-top { display: flex; align-items: center; gap: 10px; }
+.brand-mark { width: 46px; height: 46px; display: block; flex: none; object-fit: contain; transform-origin: center; animation: bob 3.2s ease-in-out infinite; }
 .brand-name {
   display: block;
   font: 650 24px/1 var(--serif);
@@ -178,8 +179,7 @@ button { cursor: pointer; }
 }
 .brand-tag {
   display: block;
-  margin-top: 2px;
-  font: 700 20px/1 var(--script);
+  font: 700 23px/1.55 var(--script);
   color: var(--pink-deep);
 }
 
@@ -841,7 +841,7 @@ mark { background: var(--sky); color: inherit; border-radius: 4px; padding: 0 3p
   transform: rotate(12deg);
 }
 .lock-mark { align-self: center; }
-.lock-mark svg { width: 52px; height: 46px; display: block; fill: var(--pink-deep); }
+.lock-mark img { width: 104px; height: 104px; display: block; }
 .lock-card h1 { margin: 0; font: 650 40px/1.05 var(--serif); letter-spacing: -0.03em; }
 .lock-card .eyebrow { display: block; }
 .lede {

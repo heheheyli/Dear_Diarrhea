@@ -1,5 +1,5 @@
 @echo off
-title Journal
+title Dear Diarrhea
 cd /d "%~dp0"
 
 where python >nul 2>nul || (
